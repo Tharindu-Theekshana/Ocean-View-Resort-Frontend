@@ -10,8 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "axios": "^1.13.6",
+    "icons": "^1.0.0",
+    "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.576.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.13.1",
+    "tailwindcss": "^4.2.1",
+    "with": "^7.0.2",
+    "work": "^0.11.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
