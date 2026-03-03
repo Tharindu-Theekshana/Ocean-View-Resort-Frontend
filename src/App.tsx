@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Rooms from './pages/Rooms'
 import Login from './pages/Login'
+import Reservations from './pages/Reservations'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path='*' element={<NotFound/>}/>
           <Route path='/rooms' element={<Rooms/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/reservations' element={<Reservations/>}/>
         </Routes>
       </Router>
     </>

@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown, BedSingle, BedDouble, Wind, Leaf, Waves, LogIn } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { Guest } from "../const/roleConst";
+import { tokenPayload } from "../const/interfaces";
 
 const roomOptions = [
   { label: "Single Room", description: "Perfect for solo travellers", icon: BedSingle, value: "SINGLE" },
@@ -17,6 +20,8 @@ export default function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const decode = token ? jwtDecode<tokenPayload>(token) : null;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -108,6 +113,13 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
+
+            {decode?.role === Guest &&
+                <a href="/reservations" className="relative text-slate-300 hover:text-white text-sm tracking-widest uppercase font-medium transition-colors duration-200 group py-1">
+                    Reservations
+                    <span className="absolute bottom-0 left-0 w-0 h-px bg-gradient-to-r from-amber-400 to-amber-300 group-hover:w-full transition-all duration-300" />
+                </a>
+            }
 
             {isLoggedIn ? 
               <button onClick={() => handleLogout()} className="flex items-center gap-2 text-sm tracking-widest uppercase font-medium px-5 py-2 border border-amber-500/40 text-amber-400 hover:text-amber-300 hover:border-amber-400 hover:bg-amber-500/10 transition-all duration-300 rounded-sm group cursor-pointer bg-transparent">

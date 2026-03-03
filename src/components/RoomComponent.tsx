@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getRoomsByCategory } from "../services/roomService";
 import { BedDouble, ChevronRight, Loader2, Inbox, CalendarDays } from "lucide-react";
+import { tokenPayload } from "../const/interfaces";
+import { jwtDecode } from "jwt-decode";
+import { makeReservation } from "../services/reservationService";
 
 interface Room {
   id: number;
@@ -35,8 +38,9 @@ export default function RoomComponent() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [dateError, setDateError] = useState("");
-
   const today = new Date().toISOString().split("T")[0];
+  const token = localStorage.getItem("token");
+  const decoded = token ? jwtDecode<tokenPayload>(token) : null;
 
   const calcNights = () => {
     if (!checkIn || !checkOut) return 0;
@@ -75,12 +79,19 @@ export default function RoomComponent() {
     }
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!checkIn || !checkOut) {
       setDateError("Please select both check-in and check-out dates.");
       return;
     }
-    // TODO: call your booking API here
+    const payload = {
+        roomId: selectedRoom?.id,
+        checkInDate: checkIn,
+        checkOutDate: checkOut,
+        reservedByGuest: true,
+        userId: decoded?.userId,
+    }
+    await makeReservation(payload);
     alert(`Booked Room ${selectedRoom?.id} from ${checkIn} to ${checkOut} for $${total}`);
     setSelectedRoom(null);
   };
@@ -101,7 +112,6 @@ export default function RoomComponent() {
   return (
     <div className="min-h-screen bg-slate-950 pt-24 pb-20">
 
-      {/* ── Page Header ── */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-14">
         <div className="flex items-center gap-2 text-amber-400/50 text-xs tracking-[0.3em] uppercase mb-4">
           <span>Ocean View Resort</span>
@@ -128,7 +138,6 @@ export default function RoomComponent() {
         </div>
       </div>
 
-      {/* ── Content ── */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {loading && (
           <div className="flex flex-col items-center justify-center py-32 gap-4">
@@ -167,7 +176,7 @@ export default function RoomComponent() {
                     </div>
                     <div className="text-right flex-shrink-0 ml-4">
                       <div className="flex items-baseline gap-0.5">
-                        <span className="text-xs text-amber-400/60">$</span>
+                        <span className="text-xs text-amber-400/60">Rs.</span>
                         <span className="text-xl font-light text-amber-400">{room.price}</span>
                       </div>
                       <p className="text-[10px] text-slate-600 tracking-wide">per night</p>
@@ -187,14 +196,12 @@ export default function RoomComponent() {
         )}
       </div>
 
-      {/* ── Booking Modal ── */}
       {selectedRoom && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
           onClick={() => setSelectedRoom(null)}>
           <div className="bg-slate-900 border border-amber-500/15 rounded-sm overflow-hidden w-full max-w-lg shadow-2xl shadow-black/60"
             onClick={(e) => e.stopPropagation()}>
 
-            {/* Modal image */}
             <div className="relative h-48 bg-slate-800">
               <img src={`data:image/jpeg;base64,${selectedRoom.image}`} alt={selectedRoom.type}
                 className="w-full h-full object-cover" />
@@ -205,10 +212,8 @@ export default function RoomComponent() {
               </button>
             </div>
 
-            {/* Modal content */}
             <div className="p-6">
 
-              {/* Room info */}
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h2 className="text-white text-lg font-medium tracking-wide">
@@ -229,9 +234,7 @@ export default function RoomComponent() {
 
               <div className="h-px bg-white/5 mb-5" />
 
-              {/* ── Date Pickers ── */}
               <div className="grid grid-cols-2 gap-3 mb-4">
-                {/* Check In */}
                 <div className="flex flex-col gap-1.5">
                   <label className="flex items-center gap-1.5 text-[10px] tracking-[0.25em] uppercase text-amber-400/60 font-medium">
                     <CalendarDays className="w-3 h-3" />
@@ -246,7 +249,6 @@ export default function RoomComponent() {
                   />
                 </div>
 
-                {/* Check Out */}
                 <div className="flex flex-col gap-1.5">
                   <label className="flex items-center gap-1.5 text-[10px] tracking-[0.25em] uppercase text-amber-400/60 font-medium">
                     <CalendarDays className="w-3 h-3" />
@@ -263,12 +265,10 @@ export default function RoomComponent() {
                 </div>
               </div>
 
-              {/* Date error */}
               {dateError && (
                 <p className="text-red-400 text-xs mb-3">{dateError}</p>
               )}
 
-              {/* Nights + total summary */}
               {nights > 0 && (
                 <div className="flex items-center justify-between bg-slate-800/60 border border-amber-500/10 rounded-sm px-4 py-3 mb-5">
                   <div className="flex items-center gap-2 text-slate-400 text-xs">
@@ -285,7 +285,6 @@ export default function RoomComponent() {
                 </div>
               )}
 
-              {/* Action buttons */}
               <div className="flex gap-3">
                 <button onClick={() => setSelectedRoom(null)}
                   className="flex-1 py-2.5 border border-white/10 text-slate-400 text-xs tracking-widest uppercase rounded-sm hover:border-white/20 hover:text-white transition-colors bg-transparent cursor-pointer">

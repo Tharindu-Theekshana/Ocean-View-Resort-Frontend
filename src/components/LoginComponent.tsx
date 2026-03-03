@@ -4,7 +4,6 @@ import {
   LogIn, Waves, Loader2
 } from "lucide-react";
 import { login, register } from "../services/authService";
-import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 type Mode = "login" | "register";
@@ -23,7 +22,6 @@ interface RegisterForm {
   phoneNumber: string;
 }
 
-// ── Moved OUTSIDE the component ──
 interface FieldProps {
   label: string;
   icon: React.ElementType;
