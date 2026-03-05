@@ -32,7 +32,7 @@ function Field({ label, icon: Icon, value, onChange, error, placeholder, type = 
             : "border-white/8 focus:border-amber-500/40"
         }`}
       />
-      {error && <p className="text-red-400/90 text-[11px] flex items-center gap-1"><span>⚠</span>{error}</p>}
+      {error && <p className="text-red-400/90 text-[11px] flex items-center gap-1"><span></span>{error}</p>}
     </div>
   );
 }
@@ -214,7 +214,7 @@ export default function AddRoomComponent() {
                 </div>
               )}
               {errors.image && (
-                <p className="text-red-400/90 text-[11px] flex items-center gap-1"><span>⚠</span>{errors.image}</p>
+                <p className="text-red-400/90 text-[11px] flex items-center gap-1"><span></span>{errors.image}</p>
               )}
             </div>
 
@@ -238,7 +238,7 @@ export default function AddRoomComponent() {
                 ))}
               </div>
               {errors.roomType && (
-                <p className="text-red-400/90 text-[11px] flex items-center gap-1"><span>⚠</span>{errors.roomType}</p>
+                <p className="text-red-400/90 text-[11px] flex items-center gap-1"><span></span>{errors.roomType}</p>
               )}
             </div>
 
@@ -266,14 +266,14 @@ export default function AddRoomComponent() {
                   }`}
                 />
                 {errors.description && (
-                  <p className="text-red-400/90 text-[11px] flex items-center gap-1"><span>⚠</span>{errors.description}</p>
+                  <p className="text-red-400/90 text-[11px] flex items-center gap-1"><span></span>{errors.description}</p>
                 )}
               </div>
 
               <Field label="Price Per Night" icon={DollarSign}
                 type="number" value={price}
                 onChange={(v) => { setPrice(v); setErr("price")(""); }}
-                placeholder="e.g. 85"
+                placeholder="e.g. 8500"
                 error={errors.price}
               />
             </div>
