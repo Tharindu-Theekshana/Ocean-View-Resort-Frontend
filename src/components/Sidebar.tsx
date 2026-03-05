@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LayoutDashboard, CalendarPlus, CalendarDays,
   UserPlus, LogOut, Waves, ChevronRight, Menu, X, BedDouble, HelpCircle
@@ -6,6 +6,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { tokenPayload } from "../const/interfaces";
+import { Reciptionist } from "../const/roleConst";
 
 const navItems = [
   {
@@ -50,6 +51,7 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [username, setUsername] = useState<String>();
+  const [decode, setDecode] = useState<any>();
   const navigate = useNavigate();
   const location = useLocation();
   const token = localStorage.getItem("token");
@@ -57,6 +59,7 @@ export default function Sidebar() {
   useEffect(() => {
     if (token) {
       const decode = jwtDecode<tokenPayload>(token);
+      setDecode(decode);
       setUsername(decode.name);
     }
   }, [token]);
@@ -85,6 +88,7 @@ export default function Sidebar() {
       <nav className="flex-1 px-3 py-4 flex flex-col gap-1 overflow-y-auto">
         {navItems.map(({ key, label, icon: Icon, description }) => {
           const isActive = location.pathname === key;
+          if ((key === "/add-room" || key === "/create-user") && decode?.role === Reciptionist) return false;
           return (
             <button
               key={key}
