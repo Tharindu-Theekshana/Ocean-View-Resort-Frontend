@@ -1,6 +1,7 @@
 export interface tokenPayload {
     userId: number;
     role: number;   
+    name: string;
 }
 
 export interface Room {

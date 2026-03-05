@@ -5,6 +5,9 @@ import {
 } from "lucide-react";
 import { login, register } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { tokenPayload } from "../const/interfaces";
+import { Guest } from "../const/roleConst";
 
 type Mode = "login" | "register";
 
@@ -109,7 +112,13 @@ export default function LoginComponent() {
         setLoginForm({
             username: "", password: ""
         });
-        navigate("/dashboard")
+        const token = localStorage.getItem("token");
+        const decode = token ? jwtDecode<tokenPayload>(token) : null;
+        if(decode?.role === Guest){
+            navigate("/reservations")
+        }else{
+            navigate("/dashboard")
+        }
 
       }else{
         alert("Login failed. Please try again.");
@@ -193,7 +202,7 @@ export default function LoginComponent() {
             {mode === "login" && (
               <form onSubmit={handleLogin} className="flex flex-col gap-4">
                 <div>
-                  <p className="text-white text-base font-light mb-1">Good to see you again 👋</p>
+                  <p className="text-white text-base font-light mb-1">Good to see you again</p>
                   <p className="text-slate-500 text-xs font-light">Sign in to manage your reservations.</p>
                 </div>
 

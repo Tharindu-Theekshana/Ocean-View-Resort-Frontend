@@ -129,7 +129,6 @@ export default function ReservationComponent() {
                           </div>
                           <p className="text-slate-500 text-xs font-light truncate">{res.room.description}</p>
 
-                          {/* Dates */}
                           <div className="flex items-center gap-3 mt-3 flex-wrap">
                             <div className="flex items-center gap-1.5">
                               <CalendarDays className="w-3.5 h-3.5 text-amber-400/50" />
@@ -185,7 +184,6 @@ export default function ReservationComponent() {
           <div className="bg-slate-900 border border-amber-500/15 rounded-sm w-full max-w-md shadow-2xl shadow-black/60 overflow-hidden"
             onClick={(e) => e.stopPropagation()}>
 
-            {/* Modal header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
               <div>
                 <p className="text-white text-sm font-medium">Reservation #{selected.id.toString().padStart(4, "0")}</p>
