@@ -275,10 +275,10 @@ export default function RoomComponent() {
                     <CalendarDays className="w-3.5 h-3.5 text-amber-400/50" />
                     <span>{nights} {nights === 1 ? "night" : "nights"}</span>
                     <span className="text-slate-600">×</span>
-                    <span>${selectedRoom.price}</span>
+                    <span>Rs.{selectedRoom.price}</span>
                   </div>
                   <div className="flex items-baseline gap-0.5">
-                    <span className="text-xs text-amber-400/60">$</span>
+                    <span className="text-xs text-amber-400/60">Rs.</span>
                     <span className="text-xl font-light text-amber-400">{total}</span>
                     <span className="text-xs text-slate-500 ml-1">total</span>
                   </div>
