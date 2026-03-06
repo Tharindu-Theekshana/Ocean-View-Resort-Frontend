@@ -81,6 +81,7 @@ export default function CreateUsersComponent() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     await register(form); 
+    alert("user created successfully")
   };
 
   const selectedRole = ROLES.find((r) => r.value === form.role);

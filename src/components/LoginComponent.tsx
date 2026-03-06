@@ -137,17 +137,17 @@ export default function LoginComponent() {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
     setLoading(true);
-    try {
       const { confirmPassword, ...rest } = registerForm;
       const payload = { ...rest, role: "GUEST" };
-      await register(payload); 
-      alert("Registration successful! You can now log in with your new account.");
-      switchMode("login");
-      setRegisterForm({
-        username: "", password: "", confirmPassword: "",
-        name: "", address: "", phoneNumber: "",
+      try{
+        await register(payload); 
+        alert("Registration successful! You can now log in with your new account.");
+        switchMode("login");
+        setRegisterForm({
+            username: "", password: "", confirmPassword: "",
+            name: "", address: "", phoneNumber: "",
       });
-    } catch(e){
+      }catch(e){
         alert("Registration failed. Please try again.");
         console.error(e);
     }finally {

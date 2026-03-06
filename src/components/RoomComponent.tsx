@@ -92,7 +92,7 @@ export default function RoomComponent() {
         userId: decoded?.userId,
     }
     await makeReservation(payload);
-    alert(`Booked Room ${selectedRoom?.id} from ${checkIn} to ${checkOut} for $${total}`);
+    alert(`Booked Room ${selectedRoom?.id} from ${checkIn} to ${checkOut} for Rs.${total}`);
     setSelectedRoom(null);
   };
 
@@ -225,7 +225,7 @@ export default function RoomComponent() {
                 </div>
                 <div className="text-right">
                   <div className="flex items-baseline gap-0.5">
-                    <span className="text-sm text-amber-400/60">$</span>
+                    <span className="text-sm text-amber-400/60">Rs.</span>
                     <span className="text-3xl font-light text-amber-400">{selectedRoom.price}</span>
                   </div>
                   <p className="text-xs text-slate-500">per night</p>
