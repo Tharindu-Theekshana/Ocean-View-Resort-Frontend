@@ -90,7 +90,7 @@ export default function ReservationComponent() {
               <Inbox className="w-6 h-6 text-amber-400/40" />
             </div>
             <p className="text-slate-400 text-sm">You have no reservations yet.</p>
-            <a href="/rooms" className="text-amber-400 text-xs tracking-widest uppercase hover:text-amber-300 transition-colors">
+            <a href="" className="text-amber-400 text-xs tracking-widest uppercase hover:text-amber-300 transition-colors">
               Browse rooms →
             </a>
           </div>

@@ -288,7 +288,7 @@ export default function AddRoomComponent() {
                     {roomType ? ROOM_TYPE_LABELS[roomType] : "—"} Room
                   </p>
                   <p className="text-slate-500 text-[10px]">
-                    {price ? `$${price} / night` : "No price set"}
+                    {price ? `Rs.${price} / night` : "No price set"}
                   </p>
                 </div>
                 {roomType && (

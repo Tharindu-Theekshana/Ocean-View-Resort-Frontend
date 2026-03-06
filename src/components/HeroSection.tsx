@@ -63,12 +63,12 @@ export default function HeroSection() {
         </div>
 
         <div className={`flex flex-col sm:flex-row gap-4 mb-16 transition-all duration-700 delay-500 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          <a href="/rooms">
+          <a href="">
             <button className="px-8 py-3.5 bg-gradient-to-r from-amber-500 to-amber-400 text-slate-900 text-sm tracking-widest uppercase font-semibold rounded-sm hover:from-amber-400 hover:to-amber-300 transition-all duration-300 shadow-xl shadow-amber-500/25 hover:shadow-amber-400/40 hover:-translate-y-0.5 cursor-pointer border-none">
               Explore Rooms
             </button>
           </a>
-          <a href="#booking">
+          <a href="">
             <button className="px-8 py-3.5 border border-white/25 text-white text-sm tracking-widest uppercase font-medium rounded-sm hover:border-amber-400/50 hover:bg-white/5 transition-all duration-300 backdrop-blur-sm cursor-pointer bg-transparent hover:-translate-y-0.5">
               Book a Stay
             </button>
